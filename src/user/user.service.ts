@@ -1,60 +1,36 @@
 import {Injectable} from '@nestjs/common'
-import { UserModel } from 'src/models/user.model'
+import { InjectRepository } from '@nestjs/typeorm';
+import { UserEntity } from './user.entity';
 
 
 
 @Injectable()
 export class UserService {
-      //MockData
-      users: UserModel[] = [ {
-            userId: 0,
-            firstName: "firstName",
-            lastName: "lastName",
-            username: "username",
-            email: "email",
-            password: "password",
-            age: 12,
-            address: "addresss",
-            dob: null,
-            verified: false
-        },
-        {
-            userId: 1,
-            firstName: "firstName",
-            lastName: "lastName",
-            username: "username",
-            email: "email",
-            password: "password",
-            age: 12,
-            address: "address",
-            dob: null,
-            verified: false
-        }
-    ]
     
+    constructor(@InjectRepository(UserEntity) private readonly userRepository) {}
    
-    findAll() {
-        return this.users;
+    async findAll():Promise<UserEntity[]> {
+        return await this.userRepository.find();
     }
 
  
     findById(id: number) {
-        return this.users[id];
+        //return this.users[id];
     }
 
 
-    createUser(newUser: UserModel) {
+    createUser(newUser: UserEntity) {
         return newUser;
     }
 
 
-    updateUser(id: number, updatedUser: UserModel) {
-        return this.users[id];;
+    updateUser(id: number, updatedUser: UserEntity) {
+       // return this.users[id];;
     }
 
 
     removeUser(id: number) {
-        return this.users[id];;
+       // return this.users[id];;
     }
 
 }

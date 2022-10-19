@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Param, Post, Put, Delete } from "@nestjs/common";
-import { UserModel } from "src/models/user.model";
+import { UserEntity } from "./user.entity";
 import { UserService } from "./user.service";
 
 @Controller('users')
@@ -9,8 +9,8 @@ export class UserContoller {
   
 
     @Get()
-    findAll() {
-        return this.userService.findAll();
+    async findAll(): Promise<UserEntity[]> {
+        return await this.userService.findAll();
     }
 
     @Get('/:id')
@@ -19,12 +19,12 @@ export class UserContoller {
     }
 
     @Post()
-    createUser(@Body() newUser: UserModel) {
+    createUser(@Body() newUser: UserEntity) {
         return this.userService.createUser(newUser);
     }
 
     @Put(':id')
-    updateUser(@Param('id') id: number, @Body() updatedUser: UserModel) {
+    updateUser(@Param('id') id: number, @Body() updatedUser: UserEntity) {
         return this.userService.updateUser(id,updatedUser);
     }
 
