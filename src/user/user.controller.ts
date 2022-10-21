@@ -20,8 +20,9 @@ export class UserContoller {
     }
 
     @Post()
-    createUser(@Body('user') newUserDto: CreateuserDto) {
-        return this.userService.createUser(newUserDto);
+    async createUser(@Body('user') newUserDto: CreateuserDto) {
+        const user = await this.userService.createUser(newUserDto);
+        return this.userService.buildUserResponse(user);
     }
 
     @Put(':id')
