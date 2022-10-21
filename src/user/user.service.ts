@@ -1,5 +1,6 @@
 import {Injectable} from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm';
+import { CreateuserDto } from './dto/createUser.dto';
 import { UserEntity } from './user.entity';
 
 
@@ -13,14 +14,15 @@ export class UserService {
         return await this.userRepository.find();
     }
 
- 
     findById(id: number) {
         //return this.users[id];
     }
 
 
-    createUser(newUser: UserEntity) {
-        return newUser;
+    async createUser(createUserDto: CreateuserDto) {
+        const newUser = new UserEntity();
+        Object.assign(newUser, createUserDto);
+        return await this.userRepository.save(newUser);
     }
 
 

@@ -19,6 +19,8 @@ export class UserEntity {
     @Column()
     address: string;
     @Column()
+    token: string;
+    @Column()
     dob: Date;
     @Column()
     verified: Boolean;
